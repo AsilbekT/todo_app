@@ -1,6 +1,55 @@
 {% extends 'base.html' %}
-{% block head %} {% endblock %}
+{% block head %}
+    <title>todo</title>
+{% endblock %}
 {% block body %}
-    {{ user }}
+
+    <main>
+
+        <section>
+            <div class="container">
+
+
+                <div class="wrapper">
+                    <header>Todo app</header>
+                    <form method="post">
+                        <div class="inputField">
+                            {% csrf_token %}
+                            <input type="text" name="todo" placeholder="Add your new todo">
+                            <button class="btn btn-primary" name="add"><i>add</i></button>
+                        </div>
+                    </form>
+                    <form method="post">
+                    {% csrf_token %}
+                        {% for todo in todoes %}
+                            <ul class="todoList">
+                                <li>
+                                    {{ todo }}
+                                    <button class="btn-del-imp" name="del-single" value="{{ todo.id }}" style="position: absolute; border: none; background: none; right: 0px; color: red;">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        {% endfor %}
+                        <div class="footer">
+                            <span>you have {{ numbers_of_todo }} pending task</span>
+                            <button class="btn-f btn btn-danger" name="delete_all" value="delete_all">Clear all</button>
+                        </div>
+                </div>
+                </form>
+            </div>
+        </section>
+
+
+    </main>
+
+    {#    <footer>#}
+    {#        <div class="container">#}
+    {#            <div class="wrapper">#}
+    {#                <span>you have 4 pending task</span>#}
+    {#                <button>Clear all</button>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </footer>#}
 {% endblock %}
 
